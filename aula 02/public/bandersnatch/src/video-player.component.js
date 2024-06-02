@@ -1,6 +1,6 @@
 class VideoMediaPlayer {
 
-  constructor({ manifestJSON, network}) {
+  constructor({ manifestJSON, network }) {
     this.manifestJSON = manifestJSON;
     this.videoElement = null;
     this.sourceBuffer = null;
@@ -21,11 +21,12 @@ class VideoMediaPlayer {
     const codecSupported = MediaSource.isTypeSupported(this.manifestJSON.codec);
     if (!codecSupported) {
       alert(`Seu browser não suporta o codec: ${ this.manifestJSON.codec }`);
+      return;
     }
 
     const mediaSource = new MediaSource();
     this.videoElement.src = URL.createObjectURL(mediaSource);
-    mediaSource.addEventListener("sourceopen", );
+    mediaSource.addEventListener('sourceopen', this.sourceOpenWrapper(mediaSource));
   }
 
   sourceOpenWrapper(mediaSource) {
